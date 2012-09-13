@@ -1,3 +1,24 @@
+"""
+I contain common tests that any resource-traversing Agent should be able to
+pass.  To use them::
+
+
+    from twisted.trial.unittest import TestCase
+    from forhire.mixin import ResourceAgentTestMixin
+    
+    class MyAwesomeAgentTest(TestCase, ResourceAgentTestMixin):
+    
+    
+        def getAgent(self, resource, address=None):
+            # <-- return one of your awesome Agent's to be used on the passed
+                  in resource.
+            pass
+
+
+"""
+
+
+
 from twisted.web.resource import Resource
 from twisted.internet import protocol, defer
 
