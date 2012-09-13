@@ -18,16 +18,3 @@ Can I change the tests?
 =======================
 
 Yes.  If there's something not tested that you think should be, add it.
-
-
-I hate github
-=============
-
-Then email me a patch, I guess.  My emails probably in a commit message 
-somewhere.
-
-
-I hate git
-==========
-
-See **I hate github** above.
