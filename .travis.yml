@@ -5,7 +5,6 @@ python:
   - "pypy"
 
 install:
-  - python setup.py install
   - pip install Twisted --use-mirrors
 
 script: bash testall.sh
