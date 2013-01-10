@@ -19,12 +19,9 @@ pass.  To use them::
 
 from urllib import urlencode
 
-from zope.interface import implements
-
 from twisted.web.server import Session, NOT_DONE_YET
 from twisted.web.resource import Resource
 from twisted.web.client import FileBodyProducer
-from twisted.web.iweb import IBodyProducer
 from twisted.web.static import Data
 from twisted.web.http_headers import Headers
 from twisted.internet import protocol, defer, address, task
@@ -158,19 +155,6 @@ class ResourceAgentTestMixin(object):
 
         agent = self.getAgent(R(), address.IPv4Address('TCP', '10.0.0.1', 293))
         return self.assertBody(agent, '10.0.0.1', 'GET', 'http://example.com')
-
-
-    def test_getRequestHostname(self):
-        """
-        getRequestHostname should work
-        """
-        class R(Resource):
-            def render_GET(self, request):
-                return str(request.getRequestHostname())
-        
-        
-        agent = self.getAgent(R())
-        return self.assertBody(agent, 'foobar.com', 'GET', 'http://foobar.com')
 
 
     @defer.inlineCallbacks
