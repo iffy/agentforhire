@@ -13,9 +13,7 @@ Instead, make something better.
 # implementation
 #------------------------------------------------------------------------------
 
-from zope.interface import implements
-from twisted.internet import reactor, defer, protocol, address, interfaces
-from twisted.web.resource import Resource
+from twisted.internet import defer, address
 from twisted.web.server import Site
 from twisted.web import client, _newclient
 from twisted.web.http_headers import Headers

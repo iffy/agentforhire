@@ -19,12 +19,10 @@ pass.  To use them::
 
 from urllib import urlencode
 
-from zope.interface import implements
-
 from twisted.web.server import Session, NOT_DONE_YET
 from twisted.web.resource import Resource
 from twisted.web.client import FileBodyProducer
-from twisted.web.iweb import IBodyProducer
+from twisted.web.static import Data
 from twisted.web.http_headers import Headers
 from twisted.internet import protocol, defer, address, task
 
@@ -105,11 +103,7 @@ class ResourceAgentTestMixin(object):
         """
         A simple GET should work.
         """
-        class R(Resource):
-            def render_GET(self, request):
-                return 'GET response'
-        
-        agent = self.getAgent(R())
+        agent = self.getAgent(Data('GET response', 'text/plain'))
         r = agent.request('GET', 'http://example.com')
         
         def gotResponse(response):
@@ -161,19 +155,6 @@ class ResourceAgentTestMixin(object):
 
         agent = self.getAgent(R(), address.IPv4Address('TCP', '10.0.0.1', 293))
         return self.assertBody(agent, '10.0.0.1', 'GET', 'http://example.com')
-
-
-    def test_getRequestHostname(self):
-        """
-        getRequestHostname should work
-        """
-        class R(Resource):
-            def render_GET(self, request):
-                return str(request.getRequestHostname())
-        
-        
-        agent = self.getAgent(R())
-        return self.assertBody(agent, 'foobar.com', 'GET', 'http://foobar.com')
 
 
     @defer.inlineCallbacks
@@ -385,13 +366,13 @@ class ResourceAgentTestMixin(object):
             def render_GET(self, request):
                 return self._response
         
-        a = R('a')
-        c = R('c')
+        a = Data('a', 'text/plain')
+        c = Data('c', 'text/plain')
         
-        a.putChild('b', R('b'))
+        a.putChild('b', Data('b', 'text/plain'))
         a.putChild('c', c)
         
-        c.putChild('d', R('d'))
+        c.putChild('d', Data('d', 'text/plain'))
         
         agent = self.getAgent(a)
         
