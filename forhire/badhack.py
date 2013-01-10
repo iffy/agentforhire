@@ -85,7 +85,7 @@ class ClientProtocol(_newclient.HTTP11ClientProtocol):
         self.response.callback(response)
 
     def _err(self, response):
-        err = response.value.args[0][0]
+        response.value.args[0][0]
         return response
 
 
