@@ -25,6 +25,7 @@ from twisted.web.server import Session, NOT_DONE_YET
 from twisted.web.resource import Resource
 from twisted.web.client import FileBodyProducer
 from twisted.web.iweb import IBodyProducer
+from twisted.web.static import Data
 from twisted.web.http_headers import Headers
 from twisted.internet import protocol, defer, address, task
 
@@ -105,11 +106,7 @@ class ResourceAgentTestMixin(object):
         """
         A simple GET should work.
         """
-        class R(Resource):
-            def render_GET(self, request):
-                return 'GET response'
-        
-        agent = self.getAgent(R())
+        agent = self.getAgent(Data('GET response', 'text/plain'))
         r = agent.request('GET', 'http://example.com')
         
         def gotResponse(response):
@@ -385,13 +382,13 @@ class ResourceAgentTestMixin(object):
             def render_GET(self, request):
                 return self._response
         
-        a = R('a')
-        c = R('c')
+        a = Data('a', 'text/plain')
+        c = Data('c', 'text/plain')
         
-        a.putChild('b', R('b'))
+        a.putChild('b', Data('b', 'text/plain'))
         a.putChild('c', c)
         
-        c.putChild('d', R('d'))
+        c.putChild('d', Data('d', 'text/plain'))
         
         agent = self.getAgent(a)
         
