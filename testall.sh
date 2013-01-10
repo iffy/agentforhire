@@ -12,3 +12,14 @@ print " ".join(result)')
 
 echo "$files"
 trial $files
+ec1=$?
+
+echo '----------------------------------------------------------------------'
+echo 'pyflakes'
+echo '----------------------------------------------------------------------'
+pyflakes forhire
+ec2=$?
+
+if [ ! $ec1 -eq 0 ] || [ ! $ec2 -eq 0 ]; then
+    exit 1
+fi
